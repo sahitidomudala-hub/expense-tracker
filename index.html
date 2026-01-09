@@ -268,12 +268,12 @@ const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart
     { onConflict: "month" }
   );
 
+if (error) {
+  console.error("Supabase error:", error);
+  alert("Error code: " + error.code);
+  return;
+}
 
-      if (error) {
-        console.error(error);
-        alert("Failed to save limits");
-        return;
-      }
 
       remaining = totalLimit;
       updateBalance();
