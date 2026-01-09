@@ -258,12 +258,16 @@ const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart
       }
 
       const { error } = await supabase
-        .from("settings")
-        .upsert({
-          month: currentMonth,
-          monthly_limit: totalLimit,
-          safe_limit: safeLimit
-        });
+  .from("settings")
+  .upsert(
+    {
+      month: currentMonth,
+      monthly_limit: totalLimit,
+      safe_limit: safeLimit
+    },
+    { onConflict: "month" }
+  );
+
 
       if (error) {
         console.error(error);
